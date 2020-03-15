@@ -150,19 +150,19 @@ export default function Figures() {
             />
             <Figure
               data={quarantines}
-              label="Quarantined"
+              label="Symptomatic"
               color={theme.colors.accent}
               size="compact"
             />
             <Figure
               data={supervisions}
-              label="Covered by epidemiological surveillance"
+              label="Covered by community surveillance"
               color={theme.colors.accent}
               size="compact"
             />
             <Figure
               data={tests}
-              label="Tests"
+              label="Screened at airport "
               color={theme.colors.accent}
               size="compact"
             />
