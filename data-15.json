@@ -340,6 +340,32 @@
           "date":"2020-03-13"
        }
     ],
+    "cures":[
+      {
+         "city":"Delhi",
+         "count":2,
+         "source":"https://www.mohfw.gov.in/",
+         "date":"2020-03-15"
+      },
+      {
+         "city":"Kerala",
+         "count":3,
+         "source":"https://www.mohfw.gov.in/",
+         "date":"2020-03-15"
+      },
+      {
+         "city":"Uttar Pradesh",
+         "count":4,
+         "source":"https://www.mohfw.gov.in/",
+         "date":"2020-03-15"
+      },
+      {
+         "city":"Telengana",
+         "count":1,
+         "source":"https://www.mohfw.gov.in/",
+         "date":"2020-03-15"
+      }
+   ],
     "hospitalizations":[
        {
           "date":"2020-03-13",

@@ -25,7 +25,7 @@ export default function CitiesSplit({isLoading, data}) {
           data={data}
           layout="vertical"
         >
-          <YAxis dataKey="city" type="category" tick={{fill: theme.colors.contentPrimary}} width={100}/>
+          <YAxis dataKey="city" type="category" tick={{fill: theme.colors.contentPrimary}} width={160}/>
           <XAxis type="number" hide/>
           <Tooltip
             formatter={value => [value, 'Number']}

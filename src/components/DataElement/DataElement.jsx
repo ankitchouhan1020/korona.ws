@@ -59,7 +59,7 @@ export default function DataElement() {
             <CitiesSplit data={groupedDeaths} isLoading={isLoading} />
             <Recent data={deaths} isLoading={isLoading} />
           </Tab>
-          <Tab title="Discharged">
+          <Tab title="Cured">
             <CitiesSplit data={groupedCures} isLoading={isLoading} />
             <Recent data={cures} isLoading={isLoading} />
           </Tab>
