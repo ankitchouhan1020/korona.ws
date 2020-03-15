@@ -1,5 +1,4 @@
-# korona.ws
-### Map of confirmed coronavirus cases in Poland
+### Map of confirmed coronavirus cases in India
 
 Created in React.
 
