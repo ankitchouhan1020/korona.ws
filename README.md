@@ -1,18 +1,19 @@
 
 # Coronavirus India map
 
-Shows map of coronavirus spread across India. Displays confirmed cases and death statistics in each state. Source : [https://www.mohfw.gov.in/](https://www.mohfw.gov.in/)
+Shows map of coronavirus spread across India. Displays confirmed cases and death statistics of each state.
+Source : [https://www.mohfw.gov.in/](https://www.mohfw.gov.in/)
 
 
 ## Contribute
 
 * [Install node](https://nodejs.org/en/download/)
-* [Install yarn]([https://classic.yarnpkg.com/en/docs/install/#debian-stable](https://classic.yarnpkg.com/en/docs/install/#debian-stable))
+* [Install yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable)
 * [Fork the repo](https://guides.github.com/activities/forking/#fork)
 * Clone your repo
 ```
 $ cd corona
-$ yarn installs
+$ yarn install
 $ yarn start
 ```
 
