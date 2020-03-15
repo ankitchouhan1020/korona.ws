@@ -48,7 +48,7 @@ export default function Layout() {
       </Layer>
       <Layer>
         <Block position={'fixed'} bottom={'40px'} right={'40px'} display="flex">
-          <div className="fb-share-button" data-href="https://visioncse.tech" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkorona.ws%2F&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>
+          <div className="fb-share-button" data-href="https://visioncse.tech" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fvisioncse.tech%2F&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>
           <Button
             size={SIZE.mini}
             onClick={() => setIsOpen(true)}
