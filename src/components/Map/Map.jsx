@@ -69,17 +69,19 @@ export default function Map(props) {
 
   if (!data.length) {
     for (const city of cities) {
-      data.push({
-        city,
-        cases: {
-          total: sum(groupedCases[city.name]),
-          data: groupedCases[city.name] || []
-        },
-        deaths: {
-          total: sum(groupedDeaths[city.name]),
-          data: groupedDeaths[city.name] || []
-        }
-      })
+      if(groupedCases[city.name]){
+        data.push({
+          city,
+          cases: {
+            total: sum(groupedCases[city.name]),
+            data: groupedCases[city.name] || []
+          },
+          deaths: {
+            total: sum(groupedDeaths[city.name]),
+            data: groupedDeaths[city.name] || []
+          }
+        })
+      }
     }
   }
 
