@@ -93,7 +93,7 @@ export function Figure({ data, label, color, size = 'standard' }) {
 }
 
 export default function Figures() {
-  const { cases, deaths, hospitalizations, quarantines, supervisions, tests } = useData();
+  const { cases, deaths, cures, hospitalizations, quarantines, supervisions, tests } = useData();
   const [showMore, setShowMore] = useState(false);
   const [, theme] = useStyletron();
   const { width } = useWindowDimensions()
