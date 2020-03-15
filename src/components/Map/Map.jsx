@@ -43,7 +43,7 @@ function getMarkerSize(max, count) {
 }
 
 export default function Map(props) {
-  const position = [51.984880, 19.368896];
+  const position = [20.739,78.745];
   const [activeCity, setActiveCity] = useState(null);
   const { width } = useWindowDimensions();
   const [, theme] = useStyletron();
@@ -54,7 +54,7 @@ export default function Map(props) {
     return (
       <Centered>
         <Spinner />
-        <Paragraph2>Ładowanie danych</Paragraph2>
+        <Paragraph2>Loading data</Paragraph2>
       </Centered>
     )
   }
@@ -83,7 +83,7 @@ export default function Map(props) {
   const max = Math.max(...(data.map(({ cases }) => cases.total)));
 
   return (
-    <LeafletMap center={position} zoom={width < theme.breakpoints.medium ? 6 : 7} zoomControl={false} maxZoom={11} minZoom={4} {...props}>
+    <LeafletMap center={position} zoom={width < theme.breakpoints.medium ? 4 : 5} zoomControl={false} maxZoom={11} minZoom={4} {...props}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
@@ -128,14 +128,14 @@ export default function Map(props) {
             <Block marginTop="10px">
               <Figure
                 data={activeCity.deaths.data}
-                label="Zgony"
+                label="Death"
                 color={theme.colors.primary}
                 size="compact"
               />
 
               <Figure
                 data={activeCity.cases.data}
-                label="Potwierdzone przypadki"
+                label="Confirmed Cases"
                 color={theme.colors.negative}
                 size="compact"
               />

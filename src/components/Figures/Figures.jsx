@@ -53,7 +53,7 @@ export function Figure({ data, label, color, size = 'standard' }) {
           {todayGrowth > 0 &&
             <StatefulTooltip
               content={() => (
-                <Paragraph3 color="backgroundPrimary">Dzisiejsza zmiana</Paragraph3>
+                <Paragraph3 color="backgroundPrimary">Today's Change</Paragraph3>
               )}
               overrides={{
                 Body: {
@@ -100,19 +100,19 @@ export default function Figures() {
 
   return (
     <StyledCard
-      title="Koronawirus w Polsce"
+      title="Coronavirus in India"
       width="380px"
     >
       <StyledBody>
         <Figure
           data={deaths}
-          label="Zgony"
+          label="Death"
           color={theme.colors.primary}
           size={width < theme.breakpoints.medium ? 'compact' : 'standard'}
         />
         <Figure
           data={cases}
-          label="Potwierdzone przypadki"
+          label="Confirmed Cases"
           color={theme.colors.negative}
           size={width < theme.breakpoints.medium ? 'compact' : 'standard'}
         />
@@ -136,7 +136,7 @@ export default function Figures() {
               }
             }}
           >
-            {!showMore ? 'Pokaż więcej' : 'Ukryj'}
+            {!showMore ? 'Show more' : 'Show less'}
           </Button>
         </Block>
 
@@ -144,25 +144,25 @@ export default function Figures() {
           <>
             <Figure
               data={hospitalizations}
-              label="Hospitalizowani"
+              label="Hospitalized"
               color={theme.colors.accent}
               size="compact"
             />
             <Figure
               data={quarantines}
-              label="Poddani kwarantannie"
+              label="Quarantined"
               color={theme.colors.accent}
               size="compact"
             />
             <Figure
               data={supervisions}
-              label="Objęci nadzorem epidemiologicznym"
+              label="Covered by epidemiological surveillance"
               color={theme.colors.accent}
               size="compact"
             />
             <Figure
               data={tests}
-              label="Testy"
+              label="Tests"
               color={theme.colors.accent}
               size="compact"
             />

@@ -52,7 +52,7 @@ export default function Layout() {
               <Button
                 $as="a"
                 target="_blank"
-                href="https://www.gov.pl/web/koronawirus"
+                href="https://www.mohfw.gov.in/"
                 kind={KIND.secondary}
                 overrides={{
                   BaseButton: {
@@ -64,13 +64,13 @@ export default function Layout() {
                   }
                 }}
               >
-                Więcej informacji nt. koronawirusa
+                More information on Coronavirus
               </Button>
             </Block>
           </Layer>
           <Layer>
             <Block position={'fixed'} bottom={'40px'} right={'40px'} display="flex">
-              <div className="fb-share-button" data-href="https://korona.ws" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkorona.ws%2F&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Udostępnij</a></div>
+              <div className="fb-share-button" data-href="https://www.mohfw.gov.in/" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkorona.ws%2F&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>
               <Button
                 size={SIZE.mini}
                 onClick={() => setIsOpen(true)}
@@ -84,7 +84,7 @@ export default function Layout() {
                   }
                 }}
               >
-                Informacje
+                Information
               </Button>
               <Button
                 size={SIZE.mini}
@@ -99,7 +99,7 @@ export default function Layout() {
                   }
                 }}
               >
-                {useDarkTheme ? 'Wyłącz' : 'Włącz'} tryb ciemny
+                Turn {useDarkTheme ? ' on ' : ' off '} dark mode
               </Button>
               <Modal
                 onClose={() => setIsOpen(false)}
@@ -115,25 +115,29 @@ export default function Layout() {
                   }
                 }}
               >
-                <ModalHeader>Informacje</ModalHeader>
+                <ModalHeader>Information</ModalHeader>
                 <ModalBody>
                   <Paragraph3>
-                    Autor nie ponosi odpowiedzialności za aktualność i poprawność przedstawionych treści. Dane mogą być nieaktualne.
+                  The author is not responsible for the topicality and correctness of the content provided. The data may be out of date.
                   </Paragraph3>
                   <Paragraph3>
-                    Autor: Konrad Kalemba<br />
-                    Kontakt: <StyledLink target="_blank" href="mailto:admin@korona.ws">
-                      admin@korona.ws
+                    Original Autor: Konrad Kalemba<br />
+                    Contact: <StyledLink target="_blank" href="mailto:admin@korona.ws">
+                      admin@korona.ws                    
+                    </StyledLink>
+                    Information about cases in India is provided by Ankit Chouhan.
+                    Contact : <StyledLink target="_blank" href="https://ankitchouhan.me">
+                      ankitchouhan.me                   
                     </StyledLink>
                   </Paragraph3>
                   <Paragraph3>
-                    Aplikacja jest "open-source" — każdy chętny może bezpośrednio pomóc w rozwoju projektu. Kod źródłowy znajduje się pod poniższym odnośnikiem:
+                  The application is "open-source" - anyone willing can directly help in the development of the project. Source code can be found at the following link:
                   </Paragraph3>
-                  <StyledLink target="_blank" href="https://github.com/konradkalemba/korona.ws">
-                    https://github.com/konradkalemba/korona.ws
+                  <StyledLink target="_blank" href="https://github.com/ankitchouhan1020/corona">
+                    https://github.com/ankitchouhan1020/corona
                   </StyledLink>
 
-                  <Label2 margin="20px 0 10px">Współtwórcy</Label2>
+                  <Label2 margin="20px 0 10px">Contributors</Label2>
                   <Contributors />
                 </ModalBody>
               </Modal>

@@ -77,8 +77,8 @@ export default function DataElement() {
             }
           }}
         >
-          <Tab title="Potwierdzone przypadki">
-            <Label3>Podział na miasta</Label3>
+          <Tab title="Confirmed Cases">
+            <Label3>Division into states</Label3>
             <Block
               $style={{
                 height: '196px',
@@ -94,17 +94,17 @@ export default function DataElement() {
                   data={data}
                   layout="vertical"
                 >
-                  <YAxis dataKey="city" type="category" tick={{ fill: theme.colors.contentPrimary }} width={100} />
+                  <YAxis dataKey="city" type="category" tick={{ fill: theme.colors.contentPrimary }} width={160} />
                   <XAxis type="number" hide />
                   <Tooltip
-                    formatter={value => [value, 'Liczba']}
+                    formatter={value => [value, 'Number']}
                   />
                   <Bar dataKey="count" fill={theme.colors.accent} />
                 </BarChart>
               ))(prepareData(cases))}
             </Block>
 
-            <Label3>Ostatnie</Label3>
+            <Label3>Recent</Label3>
             <StyledTable
               $style={{
                 borderColor: theme.colors.backgroundTertiary,
@@ -129,15 +129,15 @@ export default function DataElement() {
               )}
               <StyledHead role="row">
                 <StyledHeadCell role="columnheader">
-                  <Paragraph3 margin={0}>Data</Paragraph3>
+                  <Paragraph3 margin={0}>Date</Paragraph3>
                 </StyledHeadCell>
                 <StyledHeadCell role="columnheader">
-                  <Paragraph3 margin={0}>Liczba</Paragraph3>
+                  <Paragraph3 margin={0}>Number</Paragraph3>
                 </StyledHeadCell>
                 <StyledHeadCell role="columnheader">
-                  <Paragraph3 margin={0}>Miasto</Paragraph3>
+                  <Paragraph3 margin={0}>State</Paragraph3>
                 </StyledHeadCell>
-              </StyledHead>
+              </StyledHead> 
               <StyledTableBody>
                 {cases && cases.slice(0).reverse().map(({ date, count, city, source }, index) => (
                   <StyledRow key={index}>
@@ -167,8 +167,8 @@ export default function DataElement() {
               </StyledTableBody>
             </StyledTable>
           </Tab>
-          <Tab title="Zgony">
-            <Label3>Podział na miasta</Label3>
+          <Tab title="Deaths">
+            <Label3>Division into states</Label3>
             <Block
               $style={{
                 height: '196px',
@@ -194,7 +194,7 @@ export default function DataElement() {
               ))(prepareData(deaths))}
             </Block>
 
-            <Label3>Ostatnie</Label3>
+            <Label3>Recent</Label3>
             <StyledTable
               $style={{
                 borderColor: theme.colors.backgroundTertiary,
@@ -219,13 +219,13 @@ export default function DataElement() {
               )}
               <StyledHead role="row">
                 <StyledHeadCell role="columnheader">
-                  <Paragraph3 margin={0}>Data</Paragraph3>
+                  <Paragraph3 margin={0}>Date</Paragraph3>
                 </StyledHeadCell>
                 <StyledHeadCell role="columnheader">
-                  <Paragraph3 margin={0}>Liczba</Paragraph3>
+                  <Paragraph3 margin={0}>Number</Paragraph3>
                 </StyledHeadCell>
                 <StyledHeadCell role="columnheader">
-                  <Paragraph3 margin={0}>Miasto</Paragraph3>
+                  <Paragraph3 margin={0}>State</Paragraph3>
                 </StyledHeadCell>
               </StyledHead>
               <StyledTableBody>
