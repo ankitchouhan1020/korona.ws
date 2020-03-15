@@ -70,7 +70,7 @@ export default function Layout() {
           </Layer>
           <Layer>
             <Block position={'fixed'} bottom={'40px'} right={'40px'} display="flex">
-              <div className="fb-share-button" data-href="https://www.mohfw.gov.in/" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkorona.ws%2F&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>
+              <div className="fb-share-button" data-href="https://corona-india.netlify.com" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkorona.ws%2F&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>
               <Button
                 size={SIZE.mini}
                 onClick={() => setIsOpen(true)}
@@ -99,7 +99,7 @@ export default function Layout() {
                   }
                 }}
               >
-                Turn {useDarkTheme ? ' on ' : ' off '} dark mode
+                Turn {useDarkTheme ? ' off ' : ' on '} dark mode
               </Button>
               <Modal
                 onClose={() => setIsOpen(false)}
