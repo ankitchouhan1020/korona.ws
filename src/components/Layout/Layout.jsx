@@ -125,6 +125,7 @@ export default function Layout() {
                     Contact: <StyledLink target="_blank" href="mailto:admin@korona.ws">
                       admin@korona.ws                    
                     </StyledLink>
+                    <br></br>
                     Information about cases in India is provided by Ankit Chouhan.
                     Contact : <StyledLink target="_blank" href="https://ankitchouhan.me">
                       ankitchouhan.me                   
