@@ -116,6 +116,13 @@ export default function Figures() {
           color={theme.colors.negative}
           size={width < theme.breakpoints.medium ? 'compact' : 'standard'}
         />
+        <Figure
+          data={cures}
+          label="Discharged"
+          color={theme.colors.positive}
+          size={width < theme.breakpoints.medium ? 'compact' : 'standard'}
+        />
+
 
         <Block
           $style={{
