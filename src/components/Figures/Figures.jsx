@@ -35,16 +35,16 @@ function CountLoader() {
   );
 }
 
-export function Figure({ data, label, color, size = 'standard' }) {
-  const total = data && sum(data);
-  const todayGrowth = data && sum(data.filter(({ date }) => date === moment().format('YYYY-MM-DD')));
+export function Figure({ data, isLoading, label, color, size = 'standard' }) {
+  const total = (data && sum(data)) || 0;
+  const todayGrowth = (data && sum(data.filter(({ date }) => date === moment().format('YYYY-MM-DD')))) || 0;
 
   return (
     <div>
-      {!data &&
+      {isLoading &&
         <CountLoader />
       }
-      {data &&
+      {!isLoading &&
         <Block display="flex">
           {size === 'standard'
             ? <Display2 color={color}>{total.toLocaleString()}</Display2>
@@ -92,37 +92,48 @@ export function Figure({ data, label, color, size = 'standard' }) {
   );
 }
 
+
 export default function Figures() {
-  const { cases, deaths, cures, hospitalizations, quarantines, supervisions, tests } = useData();
+  const { cases, deaths, cures, hospitalizations, quarantines, supervisions, tests, isLoading } = useData();
   const [showMore, setShowMore] = useState(false);
   const [, theme] = useStyletron();
   const { width } = useWindowDimensions()
 
-  return (
+    return (
     <StyledCard
-      title="Coronavirus in India"
-      width="380px"
+      title="Coronovirus in India"
+      style={$theme => ({
+        [$theme.mediaQuery.medium]: {
+          maxHeight: 'calc(100vh - 80px)',
+          overflow: 'auto'
+        },
+        [$theme.mediaQuery.large]: {
+          width: '380px'
+        }
+      })}
     >
       <StyledBody>
         <Figure
           data={deaths}
+          isLoading={isLoading}
           label="Death"
           color={theme.colors.primary}
           size={width < theme.breakpoints.medium ? 'compact' : 'standard'}
         />
         <Figure
           data={cases}
+          isLoading={isLoading}
           label="Confirmed Cases"
           color={theme.colors.negative}
           size={width < theme.breakpoints.medium ? 'compact' : 'standard'}
         />
         <Figure
           data={cures}
-          label="Discharged"
+          isLoading={isLoading}
+          label="Cured"
           color={theme.colors.positive}
           size={width < theme.breakpoints.medium ? 'compact' : 'standard'}
         />
-
 
         <Block
           $style={{
@@ -143,7 +154,7 @@ export default function Figures() {
               }
             }}
           >
-            {!showMore ? 'Show more' : 'Show less'}
+             {!showMore ? 'Show more' : 'Show less'}
           </Button>
         </Block>
 
@@ -151,25 +162,29 @@ export default function Figures() {
           <>
             <Figure
               data={hospitalizations}
+              isLoading={isLoading}
               label="Hospitalized"
               color={theme.colors.accent}
               size="compact"
             />
             <Figure
               data={quarantines}
+              isLoading={isLoading}
               label="Symptomatic"
               color={theme.colors.accent}
               size="compact"
             />
             <Figure
               data={supervisions}
+              isLoading={isLoading}
               label="Covered by community surveillance"
               color={theme.colors.accent}
               size="compact"
             />
             <Figure
               data={tests}
-              label="Screened at airport "
+              isLoading={isLoading}
+              label="Screened at airport"
               color={theme.colors.accent}
               size="compact"
             />

@@ -25,7 +25,18 @@ export default function Layout() {
         </Block>
       </Layer>
       <Layer>
-        <Block display={['none', 'none', 'none', 'block']} position={'fixed'} top={'40px'} right={'40px'} $style={{ textAlign: 'right' }}>
+        <Block 
+          display={['none', 'none', 'none', 'block']}
+          position={'fixed'}
+          top={'40px'}
+          right={'40px'}
+          $style={({ $theme }) => ({
+            [$theme.mediaQuery.medium]: {
+              maxHeight: 'calc(100vh - 100px)'
+            },
+            textAlign: 'right'
+          })}
+        >
           <DataElement />
           <Button
             $as="a"
@@ -48,7 +59,7 @@ export default function Layout() {
       </Layer>
       <Layer>
         <Block position={'fixed'} bottom={'40px'} right={'40px'} display="flex">
-          <div className="fb-share-button" data-href="https://visioncse.tech" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fvisioncse.tech%2F&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>
+          <div className="fb-share-button" data-href="https://visioncse.tech" data-layout="button" data-size="large"><a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fvisioncse.tech%2F&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>
           <Button
             size={SIZE.mini}
             onClick={() => setIsOpen(true)}
@@ -99,7 +110,7 @@ export default function Layout() {
                   The author is not responsible for the topicality and correctness of the content provided. The data may be out of date.
                   </Paragraph3>
                   <Paragraph3>
-                    Original Autor: Konrad Kalemba<br />
+                    Original Author: Konrad Kalemba<br />
                     Contact: <StyledLink target="_blank" href="mailto:admin@korona.ws">
                       admin@korona.ws                    
                     </StyledLink>

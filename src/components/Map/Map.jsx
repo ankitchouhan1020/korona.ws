@@ -26,7 +26,8 @@ const Centered = styled('div', ({ $theme }) => ({
   justifyContent: 'center',
   alignItems: 'center',
   flexDirection: 'column',
-  height: '100%',
+  height: 'auto',
+  width: '100vw',
   [$theme.mediaQuery.medium]: {
     height: '100vh'
   }
@@ -45,19 +46,23 @@ function getMarkerSize(max, count) {
   return (count / max * (MAX_MARKER_SIZE - MIN_MARKER_SIZE)) + MIN_MARKER_SIZE;
 }
 
+function getLocationForCity(clickedCity, data) {
+  return data.filter((item) => item.city.name === clickedCity).pop().city.location;
+}
+
+
 export default function Map(props) {
-  const position = [20.739,78.745];
   const [activeCity, setActiveCity] = useState(null);
   const { width } = useWindowDimensions();
   const [, theme] = useStyletron();
 
-  const { cities, cases, deaths, isLoading } = useData();
+  const { cities, cases, deaths, isLoading, clickedCity } = useData();
 
   if (isLoading) {
     return (
       <Centered>
         <Spinner />
-        <Paragraph2>Loading data</Paragraph2>
+        <Paragraph2>Loading Data</Paragraph2>
       </Centered>
     )
   }
@@ -81,14 +86,16 @@ export default function Map(props) {
             data: groupedDeaths[city.name] || []
           }
         })
-      }
-    }
+     }
+   }
   }
 
   const max = Math.max(...(data.map(({ cases }) => cases.total)));
+  const position = clickedCity ? getLocationForCity(clickedCity, data) : [20.739, 78.745];
+
 
   return (
-    <LeafletMap center={position} zoom={width < theme.breakpoints.medium ? 4 : 5} zoomControl={false} maxZoom={11} minZoom={4} {...props}>
+    <LeafletMap center={position} zoom={clickedCity ? 9 : width < theme.breakpoints.medium ? 4 : 5} zoomControl={false} maxZoom={13} minZoom={4} {...props}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
@@ -126,7 +133,13 @@ export default function Map(props) {
         position={activeCity.location}
         onClose={() => setActiveCity(null)}
       >
-        <StyledCard width="320px">
+         <StyledCard 
+          style={$theme => ({
+            [$theme.mediaQuery.large]: {
+              width: '320px'
+            }
+          })}
+        >
           <StyledBody>
             <Label1>{activeCity.name}</Label1>
 

@@ -33,7 +33,7 @@ function CustomTab(props) {
 }
 
 export default function Mobile() {
-  const { cases, cures, deaths, hospitalizations, quarantines, supervisions, tests } = useData();
+  const { cases, cures, deaths, hospitalizations, quarantines, supervisions, tests, isLoading } = useData();
   const [isOpen, setIsOpen] = useState(false);
   const { useDarkTheme, setUseDarkTheme } = useTheme();
   const [activeKey, setActiveKey] = useState('0');
@@ -44,7 +44,8 @@ export default function Mobile() {
       className={css({
         display: 'flex',
         flexDirection: 'column',
-        height: '100vh'
+        minHeight: '100vh',
+        width: '100vw'
       })}
     >
       <div
@@ -59,6 +60,7 @@ export default function Mobile() {
           <FlexGridItem>
             <Figure
               data={deaths}
+              isLoading={isLoading}
               label="Death"
               color={theme.colors.primary}
               size="compact"
@@ -67,6 +69,7 @@ export default function Mobile() {
           <FlexGridItem>
             <Figure
               data={cases}
+              isLoading={isLoading}
               label="Confirmed Cases"
               color={theme.colors.negative}
               size="compact"
@@ -75,6 +78,7 @@ export default function Mobile() {
           <FlexGridItem>
             <Figure
               data={cures}
+              isLoading={isLoading}
               label="Cured"
               color={theme.colors.positive}
               size="compact"
@@ -101,10 +105,14 @@ export default function Mobile() {
             }
           },
           TabContent: {
-            style: {
-              backgroundColor: theme.colors.backgroundPrimary,
-              padding: 0,
-              flexGrow: 1
+            style: ({ $active }) => {
+              return {
+                backgroundColor: theme.colors.backgroundPrimary,
+                padding: 0,
+                flexGrow: 1,
+                display: $active ? 'flex' : 'none',
+                width: '100vw'
+              };
             }
           }
         }}
@@ -115,13 +123,15 @@ export default function Mobile() {
         <CustomTab title="Statistics">
           <div
             className={css({
-              padding: theme.sizing.scale600
+              padding: theme.sizing.scale600,
+              height: 'auto'
             })}
           >
             <FlexGrid flexGridColumnCount={2}>
               <FlexGridItem>
                 <Figure
                 data={hospitalizations}
+                isLoading={isLoading}
                 label="Hospitalized"
                 color={theme.colors.accent}
                 size="compact"
@@ -130,6 +140,7 @@ export default function Mobile() {
               <FlexGridItem>
                 <Figure
                 data={quarantines}
+                isLoading={isLoading}
                 label="Symptomatic"
                 color={theme.colors.accent}
                 size="compact"
@@ -138,6 +149,7 @@ export default function Mobile() {
               <FlexGridItem>
                 <Figure
                 data={supervisions}
+                isLoading={isLoading}
                 label="Covered by community surveillance"
                 color={theme.colors.accent}
                 size="compact"
@@ -146,6 +158,7 @@ export default function Mobile() {
               <FlexGridItem>
                 <Figure
                 data={tests}
+                isLoading={isLoading}
                 label="Screened at airport "
                 color={theme.colors.accent}
                 size="compact"
