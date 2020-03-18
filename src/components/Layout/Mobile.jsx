@@ -40,21 +40,22 @@ export default function Mobile() {
   const [css, theme] = useStyletron();
 
   return (
-    <div
-      className={css({
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-        width: '100vw'
-      })}
-    >
+    <>
       <div
         className={css({
-          backgroundColor: theme.colors.backgroundPrimary,
-          padding: theme.sizing.scale600,
-          paddingBottom: 0
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh',
+          width: '100vw'
         })}
       >
+        <div
+          className={css({
+            backgroundColor: theme.colors.backgroundPrimary,
+            padding: theme.sizing.scale600,
+            paddingBottom: 0
+          })}
+        >
         <HeadingSmall margin={0}>Coronavirus in India</HeadingSmall>
         <FlexGrid flexGridColumnCount={3}>
           <FlexGridItem>
@@ -118,7 +119,7 @@ export default function Mobile() {
         }}
       >
         <CustomTab title="Maps">
-          <Map className={useDarkTheme ? 'dark-theme' : ''} style={{ height: '100%' }} />
+          <Map className={useDarkTheme ? 'dark-theme' : ''} style={{ height: 'auto' }} />
         </CustomTab>
         <CustomTab title="Statistics">
           <div
@@ -170,6 +171,7 @@ export default function Mobile() {
           </div>
         </CustomTab>
       </Tabs>
+      </div>
       <Layer>
         <Block position={'fixed'} bottom={'16px'} left={'0px'} display="flex">
           <Button
@@ -245,6 +247,6 @@ export default function Mobile() {
           </Modal>
         </Block>
       </Layer>
-    </div>
+    </>
   );
 }
