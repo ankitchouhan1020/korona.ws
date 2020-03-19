@@ -95,8 +95,15 @@ export default function Map(props) {
 
 
   return (
-    <LeafletMap center={position} zoom={clickedCity ? 9 : width < theme.breakpoints.medium ? 4 : 5} zoomControl={false} maxZoom={13} minZoom={4} {...props}>
-      <TileLayer
+    <LeafletMap
+      center={position}
+      zoom={clickedCity ? 9 : width < theme.breakpoints.medium ? 4 : 5}
+      zoomControl={false}      
+      maxZoom={9}
+      minZoom={2}
+      // maxBounds={[[48.302684, 12.363282], [56.137388, 26.572265]]}
+      {...props}
+    ><TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
       />
