@@ -1,126 +1,163 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import * as cities from './cities.json';
-const DataContext = createContext();
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect
+ } from 'react';
 
-export function DataProvider(props) {
+ import * as cities from './cities.json';
+ const DataContext = createContext();
+ 
+ export function DataProvider(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
   const [clickedCity, setClickedCity] = useState(null)
+ 
 
+  // API presents official data from https://www.mohfw.gov.in/
   useEffect(() => {
-       fetch("https://api.rootnet.in/covid19-in/stats/daily")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setData(processData(result));
-          setIsLoading(false)
-        },
-        (error) => {
-          console.log('error in restriving data.')
-          });
-  },[]);
-
-  return (
-    <DataContext.Provider
-      value={{
-        isLoading,
-        ...data,
-        clickedCity,
-        setClickedCity
-      }}
-      {...props}
-    />
+   fetch("https://api.rootnet.in/covid19-in/stats/daily")
+    .then(res => res.json())
+    .then(
+     (result) => {
+      setData(processData(result));
+      setIsLoading(false)
+     },
+     (error) => {
+      console.log('error in restriving data.')
+     });
+  }, []);
+ 
+  return ( <
+   DataContext.Provider value = {
+    {
+     isLoading,
+     ...data,
+     clickedCity,
+     setClickedCity
+    }
+   } {
+    ...props
+   }
+   />
   )
-}
-
-export function useData() {
+ }
+ 
+ export function useData() {
   return useContext(DataContext);
-}
-
-
-function processData(apiResult){
-  if(apiResult.success === 'false') return {};
+ }
+ 
+ 
+ function processData(apiResult) {
+  if (apiResult.success === 'false') return {};
   let data = apiResult.data;
   const len = data.length;
-   // Return only latest information
-  let casesFromLatestDate = parseCases(data,len-1);
-  let casesFromDayBeforeLatest = parseCases(data,len-2);
+ 
+  // adding count field
+  for (let i in data) {
+   let cases = data[i].regional;
+   for (let j in cases) {
+    cases[j]['count'] = cases[j].confirmedCasesIndian + cases[j].confirmedCasesForeign;
+   }
+  }
+ 
+  // To form same data as used in original project, we preprocess data
+  // First date of database will contain all initial values
+  // Onwards data will contain only increment in values
+  // Code isn't optimized yet.
 
-  let lastestWithDiff = solveDifference(casesFromLatestDate, casesFromDayBeforeLatest);
-  return lastestWithDiff;
-  // return casesFromLatestDate;
-}
+  let tempRegional = [];
+  for (let i = len - 1; i > 0; i--) {
+   tempRegional.push(solveDifference(data[i].regional, data[i - 1].regional));
+  }
 
-// Parse Cases according to old database
-function parseCases(data,targetDay){
+  for (let i = len - 1, j = 0; i > 0; i--, j++) {
+   data[i].regional = tempRegional[j];
+  }
+ 
+  let parsedCases = [];
+  for (let i = 0; i < len; i++) {
+   parsedCases.push(parseCases(data, i))
+  }
+
+  let finalDatabase = parsedCases[0];
+  finalDatabase['cities'] = cities['cities'];
+
+  for (let i = 1; i < len; i++) {
+   for (let j in parsedCases[i].cases) finalDatabase['cases'].push(parsedCases[i]['cases'][j]);
+   for (let j in parsedCases[i].cures) finalDatabase['cures'].push(parsedCases[i]['cures'][j]);
+   for (let j in parsedCases[i].deaths) finalDatabase['deaths'].push(parsedCases[i]['deaths'][j]);
+  }
+ 
+  return finalDatabase;
+ }
+ 
+ // Parse Cases according to old database
+ function parseCases(data, targetDay) {
   let day = data[targetDay].day;
   let targetCases = data[targetDay].regional;
-  let cases = [],deaths = [],cures = [];
-
-  for(let i in targetCases){
-    let caseConfirmed = {
-      "city" : targetCases[i].loc,
-      "count" : parseInt(targetCases[i].confirmedCasesIndian) + parseInt(targetCases[i].confirmedCasesForeign),
-      "date" : day
+  let cases = [],
+   deaths = [],
+   cures = [];
+ 
+  for (let i in targetCases) {
+   let caseConfirmed = {
+    "city": targetCases[i].loc,
+    "count": targetCases[i].count,
+    "date": day
+   }
+ 
+   cases.push(caseConfirmed);
+   if (parseInt(targetCases[i].deaths) !== 0) {
+    let death = {
+     "city": targetCases[i].loc,
+     "count": targetCases[i].deaths,
+     "date": day
     }
-    
-    cases.push(caseConfirmed);
-    if(parseInt(targetCases[i].deaths) !==0){
-      let death = {
-        "city" : targetCases[i].loc,
-        "count" : parseInt(targetCases[i].deaths),
-        "date" : day
-      }
-      deaths.push(death);
+    deaths.push(death);
+   }
+   if (parseInt(targetCases[i].discharged) !== 0) {
+    let cure = {
+     "city": targetCases[i].loc,
+     "count": targetCases[i].discharged,
+     "date": day
     }
-    if(parseInt(targetCases[i].discharged) !== 0){
-      let cure = {
-        "city" : targetCases[i].loc,
-        "count" : parseInt(targetCases[i].discharged),
-        "date" : day
-      }
-      cures.push(cure);
-    }
+    cures.push(cure);
+   }
   }
-
+ 
   let res = {
-    "cases" : cases,
-    "deaths" : deaths,
-    "cures" : cures,
-    "cities" : cities['cities'],
+   "cases": cases,
+   "deaths": deaths,
+   "cures": cures,
   }
-  // console.log(res)
   return res;
-}
-
-function solveDifference(newDay, oldDay){
-  let lastestWithDiff = {};
-  for(let obj in oldDay){
-    lastestWithDiff[obj] = solveASingleOne(newDay[obj],oldDay[obj]);
-  }
-  return lastestWithDiff;
-}
-
-function solveASingleOne(casesNew, casesOld){
+ }
+ 
+ // Calculate difference between value of two consecutive days
+ function solveDifference(regionalNew, regionalOld) {
   let tempDiff = [];
-  for(let i in casesOld) tempDiff.push(casesOld[i]);
-  
-  for(let i in casesNew){
-    let newState = true;
-    for(let j in casesOld){
-      if(casesNew[i].city === casesOld[j].city){
-        newState = false;
-        if(casesNew[i].count > casesOld[j].count){
-          casesNew[i].count = casesNew[i].count - casesOld[j].count;
-          tempDiff.push(casesNew[i]);
+ 
+  for (let i in regionalNew) {
+   let newState = true;
+   for (let j in regionalOld) {
+      if (regionalNew[i].loc === regionalOld[j].loc) {
+      newState = false;
+      let tempObj = {};
+      tempObj.loc = regionalNew[i].loc
+      tempObj.deaths = regionalNew[i].deaths - regionalOld[j].deaths;
+      tempObj.discharged = regionalNew[i].discharged - regionalOld[j].discharged;
+      tempObj.count = regionalNew[i].count - regionalOld[j].count;
+
+      if (tempObj.deaths > 0 || tempObj.discharged > 0 || tempObj.count > 0) {
+        tempDiff.push(tempObj);
         }
       }
-      if(!newState) break;
-    }
-    if(newState){
-      tempDiff.push(casesNew[i]);
+      if (!newState) break;
+   }
+   if (newState) {
+      tempDiff.push(regionalNew[i]);
     }
   }
-  
   return tempDiff;
-}
+ }

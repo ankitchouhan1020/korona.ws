@@ -128,7 +128,7 @@ export default function Mobile() {
               height: 'auto'
             })}
           >
-            <FlexGrid flexGridColumnCount={2}>
+            {/* <FlexGrid flexGridColumnCount={2}>
               <FlexGridItem>
                 <Figure
                 data={hospitalizations}
@@ -165,7 +165,7 @@ export default function Mobile() {
                 size="compact"
                 />
               </FlexGridItem>
-            </FlexGrid>
+            </FlexGrid> */}
 
             <DataElement />
           </div>

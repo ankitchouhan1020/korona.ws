@@ -135,7 +135,7 @@ export default function Figures() {
           size={width < theme.breakpoints.medium ? 'compact' : 'standard'}
         />
 
-        <Block
+        {/* <Block
           $style={{
             marginBottom: '12px',
             textAlign: 'center'
@@ -189,7 +189,7 @@ export default function Figures() {
               size="compact"
             />
           </>
-        }
+        } */}
       </StyledBody>
     </StyledCard>
   );
