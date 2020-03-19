@@ -17,63 +17,15 @@ $ yarn install
 $ yarn start
 ```
 
-## Firebase Database Sample
+## Original Project
+* Github Repo : https://github.com/konradkalemba/korona.ws
 
-```json
-{
-	"cases" : [
-		{	
-			"city":"Delhi",
-			"count":7,
-			"date":"2020-03-15",
-			"source":"https:\/\/www.mohfw.gov.in\/"
-		},
-	],
-	"cities" : [
-		{
-			"name":"Andaman And Nicobar",
-			"location":[ 11.66702557,92.73598262]
-		}
-	],
-	"deaths" : [
-		{
-			"city":"Delhi",
-			"count":1,
-			"source":"https://www.bbc.com/news/world-asia-india-51866903",
-			"date":"2020-03-13"
-		}
-	],
-	"cures" : [
-		{
-			"city":"Delhi",
-			"count":2,
-			"source":"https://www.bbc.com/news/world-asia-india-51866903",
-			"date":"2020-03-13"
-		}
-	],
-	"hospitalizations":[
-		{
-			"date" : "2020-03-13",
-			"count": 522
-		}
-	],
-	"quarantines":[
-		{
-			"date" : "2020-03-13",
-			"count": 415
-		}
-	],
-	"supervisions":[
-		{
-			"date" : "2020-03-13",
-			"count": 42296
-		}
-	],
-	"tests":[
-		{
-			"date" : "2020-03-13",
-			"count": 1229363
-		}
-	],
-}
-```
+## API
+
+Official Data
+* Stats as a daily series: https://api.rootnet.in/covid19-in/stats/daily
+* Github Repo: https://github.com/amodm/api-covid19-in
+
+## Unofficial map
+* https://covid19india.org
+* Github : https://github.com/BetaTurtle/covid19india
