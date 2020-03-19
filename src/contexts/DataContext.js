@@ -1,33 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import firebase from 'firebase';
-
-const {
-  REACT_APP_FIREBASE_API_KEY,
-  REACT_APP_FIREBASE_AUTH_DOMAIN,
-  REACT_APP_FIREBASE_DATABASE_URL,
-  REACT_APP_FIREBASE_PROJECT_ID,
-  REACT_APP_FIREBASE_STORAGE_BUCKET,
-  REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  REACT_APP_FIREBASE_APP_ID,
-  REACT_APP_FIREBASE_MEASUREMENT_ID
-} = process.env;
-
-firebase.initializeApp({
-  ...(REACT_APP_FIREBASE_API_KEY && { apiKey: REACT_APP_FIREBASE_API_KEY }),
-  ...(REACT_APP_FIREBASE_AUTH_DOMAIN && { authDomain: REACT_APP_FIREBASE_AUTH_DOMAIN }),
-  ...(REACT_APP_FIREBASE_DATABASE_URL && { databaseURL: REACT_APP_FIREBASE_DATABASE_URL }),
-  ...(REACT_APP_FIREBASE_PROJECT_ID && { projectId: REACT_APP_FIREBASE_PROJECT_ID }),
-  ...(REACT_APP_FIREBASE_STORAGE_BUCKET && { storageBucket: REACT_APP_FIREBASE_STORAGE_BUCKET }),
-  ...(REACT_APP_FIREBASE_MESSAGING_SENDER_ID && { messagingSenderId: REACT_APP_FIREBASE_MESSAGING_SENDER_ID }),
-  ...(REACT_APP_FIREBASE_APP_ID && { appId: REACT_APP_FIREBASE_APP_ID }),
-  ...(REACT_APP_FIREBASE_MEASUREMENT_ID && { measurementId: REACT_APP_FIREBASE_MEASUREMENT_ID })
-});
-
-firebase.analytics();
-
-const updatedAtDatabaseRef = firebase.database().ref('/updatedAt');
-const rootDatabaseRef = firebase.database().ref('/');
-
+import * as cities from './cities.json';
 const DataContext = createContext();
 
 export function DataProvider(props) {
@@ -36,28 +8,17 @@ export function DataProvider(props) {
   const [clickedCity, setClickedCity] = useState(null)
 
   useEffect(() => {
-    const cachedData = JSON.parse(localStorage.getItem('data'));
-
-    // Listen to `updatedAt` property changes
-    updatedAtDatabaseRef.on('value', snapshot => {
-      // Check if cached data is valid
-      if (cachedData && cachedData.updatedAt === snapshot.val()) {
-        setData(cachedData);
-        setIsLoading(false);
-      } else {
-        rootDatabaseRef.on('value', snapshot => {
-          // Update cache
-          localStorage.setItem('data', JSON.stringify(snapshot.val()));
-
-          setData(snapshot.val());
-          setIsLoading(false);
-        });
-
-        // Disable listening to `updatedAt` changes since we are now listening to the root object changes
-        updatedAtDatabaseRef.off('value');
-      }
-    });
-  }, []);
+       fetch("https://api.rootnet.in/covid19-in/stats/daily")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setData(processData(result));
+          setIsLoading(false)
+        },
+        (error) => {
+          console.log('error in restriving data.')
+          });
+  },[]);
 
   return (
     <DataContext.Provider
@@ -74,4 +35,92 @@ export function DataProvider(props) {
 
 export function useData() {
   return useContext(DataContext);
+}
+
+
+function processData(apiResult){
+  if(apiResult.success === 'false') return {};
+  let data = apiResult.data;
+  const len = data.length;
+   // Return only latest information
+  let casesFromLatestDate = parseCases(data,len-1);
+  let casesFromDayBeforeLatest = parseCases(data,len-2);
+
+  let lastestWithDiff = solveDifference(casesFromLatestDate, casesFromDayBeforeLatest);
+  return lastestWithDiff;
+  // return casesFromLatestDate;
+}
+
+// Parse Cases according to old database
+function parseCases(data,targetDay){
+  let day = data[targetDay].day;
+  let targetCases = data[targetDay].regional;
+  let cases = [],deaths = [],cures = [];
+
+  for(let i in targetCases){
+    let caseConfirmed = {
+      "city" : targetCases[i].loc,
+      "count" : parseInt(targetCases[i].confirmedCasesIndian) + parseInt(targetCases[i].confirmedCasesForeign),
+      "date" : day
+    }
+    
+    cases.push(caseConfirmed);
+    if(parseInt(targetCases[i].deaths) !==0){
+      let death = {
+        "city" : targetCases[i].loc,
+        "count" : parseInt(targetCases[i].deaths),
+        "date" : day
+      }
+      deaths.push(death);
+    }
+    if(parseInt(targetCases[i].discharged) !== 0){
+      let cure = {
+        "city" : targetCases[i].loc,
+        "count" : parseInt(targetCases[i].discharged),
+        "date" : day
+      }
+      cures.push(cure);
+    }
+  }
+
+  let res = {
+    "cases" : cases,
+    "deaths" : deaths,
+    "cures" : cures,
+    "cities" : cities['cities'],
+  }
+  // console.log(res)
+  return res;
+}
+
+function solveDifference(newDay, oldDay){
+  let lastestWithDiff = {};
+  for(let obj in oldDay){
+    lastestWithDiff[obj] = solveASingleOne(newDay[obj],oldDay[obj]);
+  }
+  return lastestWithDiff;
+}
+
+function solveASingleOne(casesNew, casesOld){
+  let tempDiff = [];
+  for(let i in casesOld) tempDiff.push(casesOld[i]);
+  
+  for(let i in casesNew){
+    let newState = true;
+    for(let j in casesOld){
+      if(casesNew[i].city === casesOld[j].city){
+        newState = false;
+        if(casesNew[i].count > casesOld[j].count){
+          casesNew[i].count = casesNew[i].count - casesOld[j].count;
+          tempDiff.push(casesNew[i]);
+        }
+      }
+      if(!newState) break;
+    }
+    if(newState){
+      tempDiff.push(casesNew[i]);
+    }
+  }
+  
+  return tempDiff;
 }
