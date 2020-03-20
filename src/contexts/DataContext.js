@@ -54,8 +54,8 @@ import React, {
   const len = data.length;
 
   // Correcting state naming in api
-  data[9].regional[1].loc = "Chhattisgarh"
- 
+  data[8].regional[7].loc = "Puducherry"; data[9].regional[8].loc = "Puducherry";
+  
   // adding count field
   for (let i in data) {
    let cases = data[i].regional;
