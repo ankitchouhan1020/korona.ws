@@ -2189,10 +2189,10 @@ base@^0.11.1:
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
 
-baseui@^9.62.0:
-  version "9.62.0"
-  resolved "https://registry.yarnpkg.com/baseui/-/baseui-9.62.0.tgz#92bdf58addb101965f94375eda29a8972106c5ea"
-  integrity sha512-CdOqrNDZU+7yl4IMfiutYIgCysi46FQQ21sKrmup9J8fcX+CChSLQTX5teENKore1auMbgt5hgvloQRPcWsKSA==
+baseui@^9.64.3:
+  version "9.64.3"
+  resolved "https://registry.yarnpkg.com/baseui/-/baseui-9.64.3.tgz#c929a55de2c0e17912f6c9ca6cf657d7f11e684c"
+  integrity sha512-nnrkainGbdY0IOVETH2p8qpQ1Ceb30QhMGGvqF4b8WPSC4GtePTFNpvATZ+ZL7if9a2PNFKhkwUDNG0UCB4F+A==
   dependencies:
     card-validator "^6.2.0"
     date-fns "^2.6.0"
@@ -2211,6 +2211,7 @@ baseui@^9.62.0:
     react-virtualized "^9.21.1"
     react-virtualized-auto-sizer "^1.0.2"
     react-window "^1.8.5"
+    resize-observer-polyfill "^1.5.1"
     timezone-support "^2.0.2"
 
 batch@0.6.1:
@@ -8618,15 +8619,10 @@ react-input-mask@^2.0.4:
     invariant "^2.2.4"
     warning "^4.0.2"
 
-react-is@^16.12.0, react-is@^16.3.2, react-is@^16.7.0, react-is@^16.8.6:
+react-is@^16.12.0, react-is@^16.3.2, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6:
   version "16.13.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.0.tgz#0f37c3613c34fe6b37cd7f763a0d6293ab15c527"
   integrity sha512-GFMtL0vHkiBv9HluwNZTggSn/sCyEt9n02aM0dSAjGGyqyNlAyftYm4phPxdvCigG15JreC5biwxCgTAJZ7yAA==
-
-react-is@^16.8.1, react-is@^16.8.4:
-  version "16.12.0"
-  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
-  integrity sha512-rPCkf/mWBtKc97aLL9/txD8DZdemK0vkA3JMLShjlJB3Pj3s+lpf1KaBzMfQrAmhMQB0n1cU/SUGgKKBCe837Q==
 
 react-leaflet-markercluster@2.0.0-rc3:
   version "2.0.0-rc3"
