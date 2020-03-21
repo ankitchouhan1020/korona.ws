@@ -1,9 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Display2, Display4, Paragraph2, Paragraph3 } from 'baseui/typography';
 import { StyledBody } from 'baseui/card';
-import { Button, KIND, SIZE } from 'baseui/button';
-import ChevronDown from 'baseui/icon/chevron-down';
-import ChevronUp from 'baseui/icon/chevron-up';
 import ArrowUp from 'baseui/icon/arrow-up';
 import { StatefulTooltip, PLACEMENT } from 'baseui/tooltip';
 import { Block } from 'baseui/block';
@@ -94,8 +91,8 @@ export function Figure({ data, isLoading, label, color, size = 'standard' }) {
 
 
 export default function Figures() {
-  const { cases, deaths, cures, hospitalizations, quarantines, supervisions, tests, isLoading } = useData();
-  const [showMore, setShowMore] = useState(false);
+  const { cases, deaths, cures, isLoading } = useData();
+  // const [showMore, setShowMore] = useState(false);
   const [, theme] = useStyletron();
   const { width } = useWindowDimensions()
 
@@ -134,63 +131,8 @@ export default function Figures() {
           color={theme.colors.positive}
           size={width < theme.breakpoints.medium ? 'compact' : 'standard'}
         />
-
-        {/* <Block
-          $style={{
-            marginBottom: '12px',
-            textAlign: 'center'
-          }}
-        >
-          <Button
-            onClick={() => setShowMore(!showMore)}
-            kind={KIND.secondary}
-            size={SIZE.mini}
-            startEnhancer={() => !showMore ? <ChevronDown size={16} /> : <ChevronUp size={16} />}
-            overrides={{
-              BaseButton: {
-                style: ({ $theme }) => ({
-                  borderRadius: $theme.borders.radius200
-                })
-              }
-            }}
-          >
-             {!showMore ? 'Show more' : 'Show less'}
-          </Button>
-        </Block>
-
-        {showMore &&
-          <>
-            <Figure
-              data={hospitalizations}
-              isLoading={isLoading}
-              label="Hospitalized"
-              color={theme.colors.accent}
-              size="compact"
-            />
-            <Figure
-              data={quarantines}
-              isLoading={isLoading}
-              label="Symptomatic"
-              color={theme.colors.accent}
-              size="compact"
-            />
-            <Figure
-              data={supervisions}
-              isLoading={isLoading}
-              label="Covered by community surveillance"
-              color={theme.colors.accent}
-              size="compact"
-            />
-            <Figure
-              data={tests}
-              isLoading={isLoading}
-              label="Screened at airport"
-              color={theme.colors.accent}
-              size="compact"
-            />
-          </>
-        } */}
       </StyledBody>
     </StyledCard>
   );
 }
+

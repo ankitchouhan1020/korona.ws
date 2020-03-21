@@ -12,8 +12,8 @@ import React, {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
   const [clickedCity, setClickedCity] = useState(null)
- 
 
+  
   // API presents official data from https://www.mohfw.gov.in/
   useEffect(() => {
    fetch("https://api.rootnet.in/covid19-in/stats/daily")
@@ -24,7 +24,7 @@ import React, {
       setIsLoading(false)
      },
      (error) => {
-      console.log('error in restriving data.')
+      console.log('error in retriving data.')
      });
   }, []);
  
@@ -164,3 +164,33 @@ import React, {
   }
   return tempDiff;
  }
+
+//  function processBarData(rawData){
+//     //let rawData = cloneDeep(result);
+//     rawData = rawData.data;
+//     let ct = cities['cities'];
+//     let db = [];
+//     ct.forEach(function (element){
+//       let obj = {};
+//       obj[element.name] = [];
+//       db.push(obj);
+//     })
+//     let i = 1;
+//     rawData.forEach(function(date){
+//       date.regional.forEach(function (location){
+//         db.forEach(function(state){
+//           let st = Object.keys(state)[0]
+//           if(st === location.loc){
+//             state[st].push(location.confirmedCasesIndian + location.confirmedCasesForeign);
+//           }
+//         })
+//       })
+//       db.forEach(function(state){
+//         let st = Object.keys(state)[0]
+//         if(state[st].length < i) state[st].push(0);
+//       })
+//       i+=1;
+//     })
+//     // console.log(db)
+//     return db;
+//  }

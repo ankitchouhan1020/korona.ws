@@ -33,7 +33,7 @@ function CustomTab(props) {
 }
 
 export default function Mobile() {
-  const { cases, cures, deaths, hospitalizations, quarantines, supervisions, tests, isLoading } = useData();
+  const { cases, cures, deaths, isLoading } = useData();
   const [isOpen, setIsOpen] = useState(false);
   const { useDarkTheme, setUseDarkTheme } = useTheme();
   const [activeKey, setActiveKey] = useState('0');
@@ -128,45 +128,6 @@ export default function Mobile() {
               height: 'auto'
             })}
           >
-            {/* <FlexGrid flexGridColumnCount={2}>
-              <FlexGridItem>
-                <Figure
-                data={hospitalizations}
-                isLoading={isLoading}
-                label="Hospitalized"
-                color={theme.colors.accent}
-                size="compact"
-                />
-              </FlexGridItem>
-              <FlexGridItem>
-                <Figure
-                data={quarantines}
-                isLoading={isLoading}
-                label="Symptomatic"
-                color={theme.colors.accent}
-                size="compact"
-                />
-              </FlexGridItem>
-              <FlexGridItem>
-                <Figure
-                data={supervisions}
-                isLoading={isLoading}
-                label="Covered by community surveillance"
-                color={theme.colors.accent}
-                size="compact"
-                />
-              </FlexGridItem>
-              <FlexGridItem>
-                <Figure
-                data={tests}
-                isLoading={isLoading}
-                label="Screened at airport "
-                color={theme.colors.accent}
-                size="compact"
-                />
-              </FlexGridItem>
-            </FlexGrid> */}
-
             <DataElement />
           </div>
         </CustomTab>
