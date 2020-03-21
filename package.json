@@ -14,7 +14,7 @@
     "react": "^16.13.1",
     "react-content-loader": "^5.0.2",
     "react-dom": "^16.13.0",
-    "react-leaflet": "^2.6.1",
+    "react-leaflet": "^2.6.3",
     "react-leaflet-markercluster": "2.0.0-rc3",
     "react-scripts": "3.4.0",
     "recharts": "^2.0.0-beta.4",
