@@ -35,7 +35,7 @@
        ]
     },
     {
-       "name":"Union Territory of Chandigarh",
+       "name":"Chandigarh",
        "location":[
           30.71999697,
           76.78000565
@@ -84,7 +84,7 @@
        ]
     },
     {
-       "name":"Union Territory of Jammu and Kashmir",
+       "name":"Jammu and Kashmir",
        "location":[
           34.29995933,
           74.46665849
@@ -112,7 +112,7 @@
        ]
     },
     {
-        "name" : "Union Territory of Ladakh",
+        "name" : "Ladakh",
         "location":[
             34.152588,
             77.577049
