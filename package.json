@@ -6,7 +6,7 @@
     "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/react": "^10.0.1",
     "@testing-library/user-event": "^10.0.0",
-    "baseui": "^9.64.9",
+    "baseui": "^9.65.2",
     "leaflet": "^1.6.0",
     "leaflet.markercluster": "^1.4.1",
     "lodash.groupby": "^4.6.0",
