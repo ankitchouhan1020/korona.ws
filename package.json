@@ -15,7 +15,7 @@
     "react-content-loader": "^5.0.2",
     "react-dom": "^16.13.1",
     "react-leaflet": "^2.6.3",
-    "react-leaflet-markercluster": "2.0.0-rc3",
+    "react-leaflet-markercluster": "2.0.0",
     "react-scripts": "3.4.1",
     "recharts": "^2.0.0-beta.5",
     "styletron-engine-atomic": "^1.4.6",
