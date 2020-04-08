@@ -12,7 +12,7 @@
     "lodash.groupby": "^4.6.0",
     "moment": "^2.24.0",
     "react": "^16.13.1",
-    "react-content-loader": "^5.0.2",
+    "react-content-loader": "^5.0.4",
     "react-dom": "^16.13.1",
     "react-leaflet": "^2.6.3",
     "react-leaflet-markercluster": "2.0.0-rc3",
